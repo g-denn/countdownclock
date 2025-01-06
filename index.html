@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>2 Week Year</title>
+
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro:wght@100;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/flipdown/flipdown.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-family: 'SF Pro', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      h1 {
+        font-family: 'SF Pro', sans-serif;
+      }
+
+      .buttons a {
+        color: black;
+        text-decoration: none;
+        padding: 10px 15px;
+        background: white;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .buttons a:hover {
+        background: #ddd;
+      }
+    </style>
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="js/flipdown/flipdown.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Retrieve the saved countdown timestamp from localStorage
+        const savedCountdown = localStorage.getItem('countdownEndTime');
+        const now = Math.floor(Date.now() / 1000);
+
+        // If there is no saved timestamp or it's in the past, set a new 2-week countdown
+        let countdownEndTime = savedCountdown && savedCountdown > now
+          ? parseInt(savedCountdown, 10)
+          : now + (14 * 24 * 60 * 60);
+
+        // Save the new countdown end time in localStorage
+        localStorage.setItem('countdownEndTime', countdownEndTime);
+
+        // Initialize Flipdown with the persistent countdown
+        const flipdown = new FlipDown(countdownEndTime, 'flipdown')
+          .start()
+          .ifEnded(() => {
+            // Set the next two-week countdown
+            countdownEndTime = Math.floor(Date.now() / 1000) + (14 * 24 * 60 * 60);
+            localStorage.setItem('countdownEndTime', countdownEndTime);
+            flipdown.setCountdown(countdownEndTime).start();
+          });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="example">
+      <h1>2 Week Year</h1>
+      <div id="flipdown" class="flipdown"></div>
+      <div class="buttons">
+        <a href="https://docs.google.com/document/d/1YTD6k4FMmLBkDWlnGl1gTTIxZlWL_LklPBEQNiJEPqc/edit?tab=t.0" class="button">Targets</a>
+      </div>
+    </div>
+  </body>
+</html>

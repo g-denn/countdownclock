@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "2 Week Year Countdown",
+  "version": "1.0",
+  "description": "A countdown clock that resets every 2 weeks.",
+  "action": {
+    "default_popup": "index.html"
+  }
+}
